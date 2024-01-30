@@ -3,7 +3,7 @@
 
   description = "Dell Inspiron 5402 NixOS Flake Configuration";
 
-  outputs = {self, nixpkgs, home-manager, nix-super, ...}@inputs: 
+  outputs = {self, nixpkgs, home-manager, ...}@inputs: 
   let
     system = "x86_64-linux";
     pkgs = "nixpkgs.legacyPackages.${system}";

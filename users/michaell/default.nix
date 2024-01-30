@@ -17,7 +17,7 @@
   
 
   programs = {
-    home0manager = {
+    home-manager = {
       enable = true;
     };
     git = {
