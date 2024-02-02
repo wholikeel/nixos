@@ -6,6 +6,9 @@
     users = {
       michaell = import ./users/michaell;
     };
+
+    extraSpecialArgs = {
+      inherit inputs;
+    };
   };
-  modules = [ inputs.home-manager.nixosModules.home-manager ];
 }
