@@ -1,12 +1,9 @@
-{ config, pkgs, inputs, ...}:
+{ config, pkgs, inputs, ...}@args:
 {
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users = {
-      michaell = import ./users/michaell;
-    };
-
+    inherit (inputs) users;
     extraSpecialArgs = {
       inherit inputs;
     };

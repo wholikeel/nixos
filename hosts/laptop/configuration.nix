@@ -136,6 +136,9 @@
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
   };
 
-
+  nixpkgs.overlays = [ 
+    inputs.nur.overlay
+    inputs.nix-super.overlays.default 
+  ];
 
 }
