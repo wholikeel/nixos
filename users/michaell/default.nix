@@ -154,7 +154,19 @@
     };
   };
 
+  sops = {
+    defaultSopsFile = ../../secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+    age = {
+      keyFile = /home/michaell/.config/sops/age/keys.txt;
+    };
+    secrets = {
+      example-key = { };
+    };
+  };
+
   imports = [
+    inputs.sops.homeManagerModules.sops
   ];
 
 }

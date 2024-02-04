@@ -14,6 +14,7 @@
     nixpkgs.url = fh-src "NixOS" "nixpkgs" "*";
     hyprland.url = fh-src "hyprwm" "Hyprland" "0.34.0";
     sops.url = fh-src "Mic92" "sops-nix" "0.1.726";
+    sops.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = fh-src "nix-community" "home-manager" "0.2311.3174";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
