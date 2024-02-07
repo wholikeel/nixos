@@ -3,7 +3,4 @@
 ## Setup
 
 1. `git clone`
-
-2. `nix shell git+https://git.privatevoid.net/max/nix-super#nix`; This is a superset of the Nix-language which adds functionality that the configuration relies on. See more at [GitLab](https://git.privatevoid.net/max/nix-super)
-
-3. Run `nix system active ./#default` replacing `./` with the path to the repository.
+2. `sudo nixos-rebuild <action> ./#<profile>` where `<profile>` is either `laptop` or `desktop`. See `man nixos-rebuild` (or `nixos-rebuild --help`) before running replacing `<action>` with desired action.
