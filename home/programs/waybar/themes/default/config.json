@@ -1,0 +1,21 @@
+{
+    "layer": "top",
+    "margin-bottom": 0,
+    "layer": "top",
+    "margin-left": 0,
+    "margin-right": 0,
+    "spacing": 0,
+
+
+    "modules-left": [
+        "hyprland/workspackes"
+    ],
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "clock",
+        "tray"
+    ]
+}
