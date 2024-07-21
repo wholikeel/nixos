@@ -23,7 +23,6 @@
     obs-studio.enable = true;
     pandoc.enable = true;
     yt-dlp.enable = true;
-    zathura.enable = true;
   };
   
   firefox.enable = true;
