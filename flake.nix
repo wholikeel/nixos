@@ -102,6 +102,11 @@
           system = "x86_64-linux";
           overlays = [nix-gl.overlay];
         };
+        modules = [./home/laptop.nix];
+
+        extraSpecialArgs = {
+          inherit inputs;
+        };
       };
     };
   };

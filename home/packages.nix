@@ -60,8 +60,8 @@
     gparted
 
     # Social
-    #vesktop
-    #armcord
+    vesktop
+    armcord
     webcord
     dissent
     spotube
