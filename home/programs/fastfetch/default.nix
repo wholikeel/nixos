@@ -3,30 +3,105 @@
     enable = true;
     settings = {
       logo = {
-        source = "nixos_small";
+        source = "./nixos.png";
+        type = "kitty-direct";
+        height = 15;
+        width = 30;
         padding = {
-          right = 1;
+          top = 3;
+          left = 3;
         };
       };
-      display = {
-        binaryPrefix = "si";
-        color = "blue";
-        separator = "  ";
-      };
       modules = [
+        "break"
         {
-          type = "datetime";
-          key = "Date";
-          format = "{1}-{3}-{11}";
+          "type" = "custom";
+          "format" = "\x1b[90m┌──────────────────────Hardware──────────────────────┐";
         }
         {
-          type = "datetime";
-          key = "Time";
-          format = "{14}:{17}:{20}";
+          "type" = "cpu";
+          "key" = "│ ";
+          "keyColor" = "35";
+        }
+        {
+          "type" = "gpu";
+          "key" = "│ 󰍛";
+          "keyColor" = "35";
+        }
+        {
+          "type" = "memory";
+          "key" = "│ 󰑭";
+          "keyColor" = "35";
+        }
+        {
+          "type" = "custom";
+          "format" = "\u001b[90m└────────────────────────────────────────────────────┘";
         }
         "break"
-        "player"
-        "media"
+        {
+          "type" = "custom";
+          "format" = "\u001b[90m┌──────────────────────Software──────────────────────┐";
+        }
+        {
+          "type" = "custom";
+          "format" = "\u001b[31m OS -> ZaneyOS";
+        }
+        {
+          "type" = "kernel";
+          "key" = "│ ├";
+          "keyColor" = "31";
+        }
+        #{
+        #    "type" = "packages";
+        #    "key" = "│ ├󰏖";
+        #    "keyColor" = "31";
+        #}
+        {
+          "type" = "shell";
+          "key" = "└ └";
+          "keyColor" = "31";
+        }
+        "break"
+        {
+          "type" = "wm";
+          "key" = " WM";
+          "keyColor" = "32";
+        }
+        {
+          "type" = "wmtheme";
+          "key" = "│ ├󰉼";
+          "keyColor" = "32";
+        }
+        {
+          "type" = "terminal";
+          "key" = "└ └";
+          "keyColor" = "32";
+        }
+        {
+          "type" = "custom";
+          "format" = "\u001b[90m└────────────────────────────────────────────────────┘";
+        }
+        "break"
+        {
+          "type" = "custom";
+          "format" = "\u001b[90m┌────────────────────Uptime / Age────────────────────┐";
+        }
+        {
+          "type" = "command";
+          "key" = "│ ";
+          "keyColor" = "33";
+          "text" = "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days";
+        }
+        {
+          "type" = "uptime";
+          "key" = "│ ";
+          "keyColor" = "33";
+        }
+        {
+          "type" = "custom";
+          "format" = "\u001b[90m└────────────────────────────────────────────────────┘";
+        }
+        "break"
       ];
     };
   };

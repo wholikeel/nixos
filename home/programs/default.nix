@@ -14,6 +14,8 @@
     ./pywal
     ./tmux
     ./waybar
+    ./zathura
+    ./zsh
   ];
 
   programs = {

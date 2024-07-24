@@ -40,6 +40,8 @@
     description = "Michael LePera";
     extraGroups = ["networkmanager" "wheel" "adbusers"];
     packages = [];
+    shell = pkgs.zsh;
+    ignoreShellProgramCheck = true;
   };
 
   security.rtkit.enable = true;

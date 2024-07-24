@@ -50,6 +50,13 @@
 
         #"$mod, S, exec, rofi -show drun -show-icons"
         "$mod, S, exec, fuzzel"
+
+        # Screenshot
+        " , Print, exec, grim - | wl-copy"
+        "SHIFT, Print, exec, grim -g \"$(slurp -w 0)\" | wl-copy"
+        "SHIFT, Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
+
+        "$mod, V, exec, cliphist list | fuzzle --dmenu --log-level=none | cliphist decode | wl-copy"
       ];
       bindm = [
         "$mod, mouse:272, movewindow"
@@ -85,6 +92,8 @@
         #"hyprpaper & hyprctl hyprpaper preload ${wallpaper} & hyprctl hyprpaper wallpaper \"DP-3,${wallpaper}\" & hyprctl hyprpaper wallpaper \"HDMI-A-1,${wallpaper}"
         "hyprpaper"
         "nm-applet --indicator"
+        "wl-paste --type text --watch cliphist store"
+        "wl-paste --type image --watch cliphist store"
         #"waybar"
         #"dunst"
         "ags"

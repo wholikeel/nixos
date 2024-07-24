@@ -12,6 +12,9 @@
     dunst
     swww
     wl-clipboard
+    slurp
+    swappy
+    grim
     rofi-wayland
     pavucontrol
     networkmanagerapplet
@@ -30,10 +33,12 @@
     xdg-utils
     xdg-desktop-portal-hyprland
     xwaylandvideobridge
+    wallust
 
     # Core
     yazi
     qbittorrent
+    quodlibet
 
     # Documents
     calibre
@@ -47,6 +52,7 @@
     gnome.pomodoro
     vistafonts
     umlet
+    obsidian
 
     # Theming
     font-awesome

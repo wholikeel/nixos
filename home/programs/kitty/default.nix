@@ -8,5 +8,8 @@
       name = "JetBrainsMono NFM Regular";
       size = 18;
     };
+    shellIntegration = {
+      enableZshIntegration = true;
+    };
   };
 }

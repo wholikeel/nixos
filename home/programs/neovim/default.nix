@@ -18,6 +18,8 @@
         clang-tools
         nixd
         lua-language-server
+        # for lazy
+        (luajit.withPackages (ps: with ps; [ luarocks ]))
 
         # formatter
         stylua
