@@ -27,6 +27,7 @@
       jetbrains-mono
       (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
       qpdf
+      obsidian
 
       kitty-img
       kitty-themes
@@ -41,6 +42,8 @@
     ./programs/fastfetch
     ./programs/tmux
     ./programs/neomutt
+    ./programs/zsh
+    ./programs/fastfetch
   ];
 
   programs = {
