@@ -16,6 +16,8 @@
         nrb = "nixos-rebuild";
         nd = "nix develop";
         nb =  "nix build";
+        gs = "git status";
+        hms = "home manager switch --flake";
       };
     };
     initExtraFirst = ''
