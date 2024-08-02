@@ -44,18 +44,18 @@
         }
         {
           "type" = "custom";
-          "format" = "\u001b[31m OS -> ZaneyOS";
+          "format" = "\u001b[31m OS";
         }
         {
           "type" = "kernel";
           "key" = "│ ├";
           "keyColor" = "31";
         }
-        #{
-        #    "type" = "packages";
-        #    "key" = "│ ├󰏖";
-        #    "keyColor" = "31";
-        #}
+        {
+           "type" = "packages";
+           "key" = "│ ├󰏖";
+           "keyColor" = "31";
+        }
         {
           "type" = "shell";
           "key" = "└ └";
