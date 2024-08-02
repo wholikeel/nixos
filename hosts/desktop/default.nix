@@ -38,7 +38,7 @@
   users.users.michaell = {
     isNormalUser = true;
     description = "Michael LePera";
-    extraGroups = ["networkmanager" "wheel" "adbusers"];
+    extraGroups = [ "uinput" "networkmanager" "wheel" "adbusers"];
     packages = [];
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;
@@ -49,7 +49,7 @@
   programs = {
     hyprland = {
       enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    #   package = pkgs.hyprland;#inputs.hyprland.packages.${pkgs.system}.hyprland;
     };
     adb = {
       enable = true;
@@ -109,6 +109,7 @@
     };
   };
 
+  hardware.uinput.enable = true;
   services = {
     greetd = {
       enable = true;

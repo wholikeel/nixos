@@ -14,6 +14,7 @@
       extraPackages = with pkgs; [
         ripgrep
         fd
+        delta
         # language server
         clang-tools
         nixd

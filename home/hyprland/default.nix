@@ -5,13 +5,24 @@
 }: {
   wayland.windowManager.hyprland = {
     enable = true;
+    package = pkgs.hyprland;
+    # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     settings = {
       "$mod" = "SUPER";
       env = [
         "QT_QPA_PLATFORM,wayland"
         "QT_QPA_PLATFORMTHEME,qt5ct"
         "MOZ_ENABLE_WAYLAND,1"
+        "XDG_SESSION_TYPE,wayland"
+        "XDG_SESSION_DESKTOP,Hyprland"
+        "XDG_CURRENT_DESKTOP,Hyprland"
+        "WLR_NO_HARDWARE_CURSORS,1"
+        "HYPRCURSOR_THEME,macOS-svg"
+        "HYPRCURSOR_SIZE,24"
       ];
+      cursor = {
+        no_hardware_cursors = true;
+      };
       input = {
         kb_options = [
           "caps:swapescape"

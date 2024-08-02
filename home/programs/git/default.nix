@@ -2,6 +2,10 @@
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
+    delta = {
+      enable = true;
+      package = pkgs.delta;
+    };
     extraConfig = {
       credential.helper = "${pkgs.keepassxc}/bin/keepassxc --git-groups";
     };

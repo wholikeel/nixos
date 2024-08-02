@@ -2,10 +2,12 @@
   imports = [
     ./ags
     ./bash
+    ./bat
     ./bemenu
     ./fastfetch
     ./firefox
     ./fuzzel
+    ./fzf
     ./git
     ./gtk
     ./hyprlock
@@ -19,7 +21,7 @@
   ];
 
   programs = {
-    fzf.enable = true;
+    aria2.enable = true;
     lsd.enable = true;
     mpv.enable = true;
     obs-studio.enable = true;

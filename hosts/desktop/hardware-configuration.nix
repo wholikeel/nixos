@@ -14,9 +14,12 @@
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
+  boot.kernelModules = ["amdgpu" "kvm-intel"];
   boot.extraModulePackages = [];
   boot.supportedFilesystems = ["ntfs"];
+  systemd.tmpfiles.rules = [
+      "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
 
   #  fileSystems."/" =
   #    {

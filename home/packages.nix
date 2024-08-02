@@ -9,6 +9,7 @@
     libnotify
     hyprpaper
     hyprkeys #inputs.hyprkeys.packages.x86_64-linux.hyprkeys
+    hyprcursor
     dunst
     swww
     wl-clipboard
