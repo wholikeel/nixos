@@ -31,7 +31,13 @@
 
       kitty-img
       kitty-themes
+
+      # secure-software-dev
+      burpsuite
+      jython
+
     ];
+    file = {};
   };
 
   imports = [

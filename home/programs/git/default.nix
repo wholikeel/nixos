@@ -20,5 +20,6 @@
   home.packages = with pkgs; [
     gh
     git-credential-keepassxc
+    git-credential-manager
   ];
 }
