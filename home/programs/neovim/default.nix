@@ -18,6 +18,7 @@
         # language server
         clang-tools
         nixd
+        markdown-oxide
         lua-language-server
         # for lazy
         (luajit.withPackages (ps: with ps; [ luarocks ]))
@@ -27,10 +28,15 @@
         nixfmt-classic
         prettierd
         alejandra
+        jq
+        libxml2
 
         # lints
         statix
         eslint_d
+
+        # For http
+        curlFull
       ];
     };
   };
