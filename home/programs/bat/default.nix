@@ -1,6 +1,8 @@
 {pkgs, ...}: {
+  # FIX: this is really verbose
+  # needs some custom styling
   programs.bat = {
-    enable = true;
+    enable = false; 
     package = pkgs.bat;
     extraPackages = with pkgs.bat-extras; [
       batdiff
