@@ -42,12 +42,14 @@
     quodlibet
 
     # Documents
+    krita
     calibre
     texliveFull
     libreoffice-qt
     yt-dlp
     musescore
     libsForQt5.dolphin
+    libsForQt5.kate
     gnome.nautilus
     gnome-usage
     gnome.pomodoro
@@ -78,5 +80,10 @@
     protontricks
     faudio
     glfw-wayland-minecraft
+    osu-lazer-bin
+
+    burpsuite
+
+    inputs.zen-browser.packages.x86_64-linux.default
   ];
 }

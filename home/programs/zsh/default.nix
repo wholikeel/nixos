@@ -29,6 +29,16 @@
     syntaxHighlighting = {
       enable = true;
     };
+    sessionVariables = {
+      EDITOR = "nvim";
+      NIXOS_OZONE_WL = "1";
+      QT_IM_MODULE = "fcitx";
+      # GTK_IM_MODULE = "fcitx";
+      SDL_IM_MODULE = "fcitx";
+      GLFW_IM_MODULE = "fcitx";
+      QT_IM_MODULES = "wayland;fcitx;ibus";
+      XMODIFIER = "im@fcitx";
+    };
   };
   # TODO: cannot be in a home-manager module.
   # environment.pathsToLink = [

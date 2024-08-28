@@ -19,6 +19,7 @@
           ./xdg.nix
           ./services.nix
           ./files.nix
+          ./i18n.nix
           ./hyprland
         ];
         home = {

@@ -1,12 +1,12 @@
-{
-  pkgs,
+{ pkgs,
   inputs,
   ...
 }: {
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
-    # package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    # package = pkgs.hyprland;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    plugins = [];
     settings = {
       "$mod" = "SUPER";
       env = [
@@ -19,6 +19,13 @@
         "WLR_NO_HARDWARE_CURSORS,1"
         "HYPRCURSOR_THEME,macOS-svg"
         "HYPRCURSOR_SIZE,24"
+        # IM
+        "QT_IM_MODULE=fcitx"
+        # "GTK_IM_MODULE=fcitx"
+        "SDL_IM_MODULE=fcitx"
+        "GLFW_IM_MODULE=fcitx"
+        "XMODIFIERS=@im=fcitx"
+        "QT_IM_MODULES=wayland;fcitx;ibus"
       ];
       cursor = {
         no_hardware_cursors = true;
@@ -28,6 +35,9 @@
           "caps:swapescape"
         ];
       };
+      windowrulev2 = [
+        "focusonactivate, title:Firefox"
+      ];
       bind = [
         "$mod SHIFT, E, exec, pkill Hyprland"
         "$mod, Q, killactive,"
@@ -59,6 +69,16 @@
         "$mod, 8, workspace, 8"
         "$mod, 9, workspace, 9"
 
+        "$mod SHIFT, 1, movetoworkspace, 1"
+        "$mod SHIFT, 2, movetoworkspace, 2"
+        "$mod SHIFT, 3, movetoworkspace, 3"
+        "$mod SHIFT, 4, movetoworkspace, 4"
+        "$mod SHIFT, 5, movetoworkspace, 5"
+        "$mod SHIFT, 6, movetoworkspace, 6"
+        "$mod SHIFT, 7, movetoworkspace, 7"
+        "$mod SHIFT, 8, movetoworkspace, 8"
+        "$mod SHIFT, 9, movetoworkspace, 9"
+
         #"$mod, S, exec, rofi -show drun -show-icons"
         "$mod, S, exec, fuzzel"
 
@@ -72,6 +92,7 @@
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
+        "$mod, mouse:275, togglefloating"
       ];
       bindle = [
         ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+"
@@ -102,6 +123,7 @@
         #"${swww} init & ${swww} img ${wallpaper }"
         #"hyprpaper & hyprctl hyprpaper preload ${wallpaper} & hyprctl hyprpaper wallpaper \"DP-3,${wallpaper}\" & hyprctl hyprpaper wallpaper \"HDMI-A-1,${wallpaper}"
         "hyprpaper"
+        # "${pkgs.hyprpanel}/bin/hyprpanel"
         "nm-applet --indicator"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
@@ -109,11 +131,42 @@
         #"dunst"
         "ags"
         polkit
+        "fcitx5"
       ];
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
       };
     };
+    extraConfig = let
+        zoom-in = pkgs.writeShellScriptBin "zoom-in" ''
+          #!/usr/bin/env bash
+          currentZoom=$(hyprctl getoption cursor:zoom_factor | head -1 | cut -f2 -d' ')
+          result=$(hyprctl keyword cursor:zoom_factor $(($currentZoom + 0.10)))
+        '';
+        zoom-out = pkgs.writeShellScriptBin "zoom-out" ''
+          #!/usr/bin/env bash
+          currentZoom=$(hyprctl getoption cursor:zoom_factor | head -1 | cut -f2 -d' ')
+          if [ $currentZoom == 1.00 ]; then
+              result=$(hyprctl keyword cursor:zoom_factor $(($currentZoom - 0.10)))
+          fi
+        '';
+        zoom-reset = pkgs.writeShellScriptBin "zoom-reset" ''
+          #!/usr/bin/env bash
+          result=$(hyprctl keyword cursor:zoom_factor 1.00)
+        '';
+    in ''
+      # window resize
+      bind = $mod, , submap, zoom
+      
+      submap = zoom
+      bind = , mouse_up, exec, ${zoom-in}/bin/zoom-in
+      bind = , mouse_down, exec, ${zoom-out}/zoom-out
+      bind = , escape, submap, reset
+      bindr = $mod, , submap, reset
+      submap = reset
+    '';
+      # bind = , escape, exec, ${zoom-reset}/bin/zoom-reset
+      # bindr = $mod, , exec, ${zoom-reset}/bin/zoom-reset
   };
 }

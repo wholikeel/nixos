@@ -5,20 +5,21 @@
   inputs,
   ...
 }: {
+
   options.firefox.enable = lib.mkEnableOption "Firefox";
   config = lib.mkIf config.firefox.enable {
     programs.firefox = {
       enable = true;
-      policies = {
-        "NetworkPrediction" = false;
-        "CaptivePortal" = false;
-        "DNSOverHTTPS" = {
-          "Enabled" = false;
-        };
-        "DisabledFirefoxStudies" = true;
-        "DisableTelemetry" = true;
-        "DisablePocket" = true;
-      };
+      # policies = {
+      #   "NetworkPrediction" = false;
+      #   "CaptivePortal" = false;
+      #   "DNSOverHTTPS" = {
+      #     "Enabled" = false;
+      #   };
+      #   "DisabledFirefoxStudies" = true;
+      #   "DisableTelemetry" = true;
+      #   "DisablePocket" = true;
+      # };
       profiles = {
         michaell = {
           id = 0;
@@ -238,13 +239,16 @@
           in
             with nurNoPkgs.repos.rycee.firefox-addons; [
               ublock-origin
+              sponsorblock
               bitwarden
               darkreader
               vimium
               localcdn
               keepassxc-browser
               pywalfox
-            ];
+              yomitan
+              foxyproxy-standard
+           ];
         };
       };
     };
@@ -255,4 +259,8 @@
       };
     };
   };
+
+  imports = [
+    ./policies.nix
+  ];
 }

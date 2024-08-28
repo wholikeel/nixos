@@ -12,6 +12,7 @@
     ./gtk
     ./hyprlock
     ./kitty
+    ./librewolf
     ./neovim
     ./pywal
     ./tmux
