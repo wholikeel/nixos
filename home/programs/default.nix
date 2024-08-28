@@ -13,6 +13,7 @@
     ./hyprlock
     ./kitty
     ./librewolf
+    ./neomutt
     ./neovim
     ./pywal
     ./tmux
