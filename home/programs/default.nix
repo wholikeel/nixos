@@ -15,6 +15,7 @@
     ./librewolf
     ./neomutt
     ./neovim
+    ./newsboat
     ./pywal
     ./tmux
     ./waybar
