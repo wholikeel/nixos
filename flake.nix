@@ -44,6 +44,17 @@
         };
       };
     };
+    hyprland-plugins = {
+        url = "github:hyprwm/hyprland-plugins";
+        inputs.hyprland.follows = "hyprland";
+    };
+    hyprpanel = {
+      url = "github:Jas-SinghFSU/HyprPanel";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        ags.follows = "ags"; 
+      };
+    };
     nur = {
       type = "github";
       owner = "nix-community";
@@ -78,6 +89,10 @@
           follows = "nixpkgs-unstable";
         };
       };
+    };
+    zen-browser = {
+        url = "github:MarceColl/zen-browser-flake";
+        inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
