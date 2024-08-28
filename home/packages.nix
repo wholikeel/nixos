@@ -42,6 +42,7 @@
     quodlibet
 
     # Documents
+    urlscan
     krita
     calibre
     texliveFull

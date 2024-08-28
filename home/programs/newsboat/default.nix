@@ -1,6 +1,7 @@
 {
   programs.newsboat = {
     enable = true;
+    extraConfig = builtins.readFile ./config;
     urls = [
       {
         title = "Not related - Luke Smith";
