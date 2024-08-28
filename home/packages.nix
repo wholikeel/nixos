@@ -43,6 +43,7 @@
 
     # Documents
     urlscan
+    tsduck
     krita
     calibre
     texliveFull

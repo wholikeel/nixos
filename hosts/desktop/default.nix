@@ -34,7 +34,6 @@
       };
     };
   };
-
   users.users.michaell = {
     isNormalUser = true;
     description = "Michael LePera";
@@ -168,6 +167,7 @@
     overlays = [
       inputs.nur.overlay
       inputs.neovim.overlays.default
+      inputs.hyprpanel.overlay.x86_64-linux
       (self: super: {
         gnome = super.gnome.overrideScope (gself: gsuper: {
           nautilus = gsuper.nautilus.overrideAttrs (nsuper: {
@@ -199,11 +199,25 @@
 
       # Firefox use wayland
       MOZ_ENABLE_WAYLAND = "1";
+
+      QT_IM_MODULE = "fcitx";
+      # GTK_IM_MODUL = "fcitx"; # not for wayland
+      SDL_IM_MODULE = "fcitx";
+      GLFW_IM_MODULE = "fcitx";
+      XMODIFIER = "@im=fcitx";
+      QT_IM_MODULES = "wayland;fcitx;ibus";
+    };
+  };
+
+  security = {
+    polkit = {
+      enable = true;
     };
   };
 
   imports = [
     ./hardware-configuration.nix
+    ./virtualisation.nix
     ../../home
   ];
 }
