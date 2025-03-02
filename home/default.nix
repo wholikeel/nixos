@@ -9,7 +9,7 @@
     useUserPackages = true;
     useGlobalPkgs = true;
     extraSpecialArgs = {inherit inputs;};
-    backupFileExtension = "backup";
+    backupFileExtension = "backup2";
     users = {
       michaell = {
         imports = [
@@ -26,6 +26,7 @@
           username = "michaell";
           homeDirectory = "/home/michaell";
           stateVersion = "24.05";
+          enableNixpkgsReleaseCheck = false;
         };
         programs.home-manager.enable = true;
       };

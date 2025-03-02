@@ -8,3 +8,13 @@ in {
     style = builtins.readFile ./themes/anishkus/style.css;
   };
 }
+
+# {
+#   programs.waybar = {
+#     enable = true;
+#
+#     settings = {
+#
+#     };
+#   };
+# }

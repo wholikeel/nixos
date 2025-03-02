@@ -248,6 +248,8 @@
               pywalfox
               yomitan
               foxyproxy-standard
+              untrap-for-youtube
+              impulse-blocker
            ];
         };
       };

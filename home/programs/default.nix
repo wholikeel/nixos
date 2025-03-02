@@ -4,10 +4,12 @@
     ./bash
     ./bat
     ./bemenu
+    ./emacs
     ./fastfetch
     ./firefox
     ./fuzzel
     ./fzf
+    ./ghostty
     ./git
     ./gtk
     ./hyprlock
@@ -31,7 +33,7 @@
     pandoc.enable = true;
     yt-dlp.enable = true;
   };
-  
+
   firefox.enable = true;
   pywal.enable = true;
 }

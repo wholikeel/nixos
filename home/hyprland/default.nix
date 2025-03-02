@@ -84,15 +84,17 @@
 
         # Screenshot
         " , Print, exec, grim - | wl-copy"
-        "SHIFT, Print, exec, grim -g \"$(slurp -w 0)\" | wl-copy"
+        # "SHIFT, Print, exec, grim -g \"$(slurp -w 0)\" | wl-copy"
         "SHIFT, Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
 
         "$mod, V, exec, cliphist list | fuzzle --dmenu --log-level=none | cliphist decode | wl-copy"
+
+        "CTRL, code:68, sendshortcut, , code:69,"
       ];
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
-        "$mod, mouse:275, togglefloating"
+        "$mod SHIFT, mouse:273, togglefloating"
       ];
       bindle = [
         ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%+"

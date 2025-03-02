@@ -10,9 +10,13 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Nordic";
-      package = pkgs.nordic;
+      name = "Vimix";
+      package = pkgs.vimix-gtk-themes;
     };
+    # theme = {
+    #   name = "Nordic";
+    #   package = pkgs.nordic;
+    # };
     # cursorTheme = {
     #   name = "Catppuccin-Mocha-Dark-Cursors";
     #   package = pkgs.catppuccin-cursors.mochaDark;

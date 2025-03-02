@@ -6,6 +6,11 @@
     };
     mpd-mpris.enable = true;
 
+    mpd = {
+      enable = true;
+      musicDirectory = /home/michaell/Music;
+    };
+
 
     # hyprpaper = let
     #   wp = "~/Images/Wallpapers/wallhaven-m3vgvk_1920x1080.png";

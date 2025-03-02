@@ -6,7 +6,7 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-24.05";
+      ref = "nixos-24.11";
     };
     nixpkgs-unstable = {
       type = "github";
@@ -80,6 +80,10 @@
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    astal = {
+      url = "github:aylur/astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     neovim = {
       type = "github";
       owner = "nix-community";
@@ -94,6 +98,15 @@
         url = "github:MarceColl/zen-browser-flake";
         inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ghostty.url = "github:ghostty-org/ghostty";
+
+
+    nix-minecraft = {
+        url = "github:Infinidoge/nix-minecraft";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = {
@@ -115,10 +128,11 @@
     };
     homeConfigurations = {
       michaell = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          overlays = [nix-gl.overlay];
-        };
+        pkgs = (nixpkgs.legacyPackages.x86_64-linux.extend nix-gl.overlay);
+        # pkgs = import nixpkgs {
+        #   system = "x86_64-linux";
+        #   overlays = [nix-gl.overlay];
+        # };
         modules = [./home/laptop.nix];
 
         extraSpecialArgs = {

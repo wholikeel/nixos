@@ -1,14 +1,39 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}: {
+{ config, pkgs, inputs, lib, ... }: {
+
+  imports = [
+    ./hardware-configuration.nix
+    ./virtualisation.nix
+    ./vpn.nix
+    ../../home
+    inputs.nix-minecraft.nixosModules.minecraft-servers
+  ];
+
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      inputs.nur.overlays.default
+      inputs.neovim.overlays.default
+      inputs.nix-minecraft.overlays.default
+      # inputs.hyprpanel.overlay.x86_64-linux
+      # (self: super: {
+      #   gnome = super.gnome.overrideScope (gself: gsuper: {
+      #     nautilus = gsuper.nautilus.overrideAttrs (nsuper: {
+      #       buildInputs = nsuper.buildInputs ++ (with super.gst_all_1; [gst-plugins-good gst-plugins-bad]);
+      #     });
+      #   });
+      # })
+      (final: prev: {
+        nautilus = prev.nautilus.overrideAttrs (nsuper: {
+          buildInputs = nsuper.buildInputs
+            ++ (with prev.gst_all_1; [ gst-plugins-good gst-plugins-bad ]);
+        });
+      })
+    ];
+  };
+
   time.timeZone = "Australia/Adelaide";
 
-  systemd.services.mpd.environment = {
-    XDG_RUNTIME_DIR = "/run/user/1000";
-  };
+  systemd.services.mpd.environment = { XDG_RUNTIME_DIR = "/run/user/1000"; };
   boot = {
     loader = {
       grub = {
@@ -25,9 +50,7 @@
           }
         '';
       };
-      systemd-boot = {
-        enable = false;
-      };
+      systemd-boot = { enable = false; };
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot";
@@ -37,29 +60,44 @@
   users.users.michaell = {
     isNormalUser = true;
     description = "Michael LePera";
-    extraGroups = [ "uinput" "networkmanager" "wheel" "adbusers"];
-    packages = [];
+    extraGroups = [ "docker" "uinput" "networkmanager" "wheel" "adbusers" ];
+    packages = [ ];
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;
   };
 
+  # users.groups.uinput.gid = lib.mkForce 989;
+
   security.rtkit.enable = true;
+
+  services.minecraft-server = {
+    enable = true;
+    eula = true;
+    declarative = true;
+    openFirewall = true;
+    jvmOpts = "-Xms4092M -Xmx4092M -XX:+UseG1GC";
+    package = pkgs.papermcServers.papermc-1_21;
+    serverProperties = {
+     server-port = 25565;
+     enable-rcon = true;
+     "rcon.password" = "giganigga";
+    };
+  };
 
   programs = {
     hyprland = {
       enable = true;
-    #   package = pkgs.hyprland;#inputs.hyprland.packages.${pkgs.system}.hyprland;
+      package =
+        pkgs.hyprland; # inputs.hyprland.packages.${pkgs.system}.hyprland;
     };
-    adb = {
-      enable = true;
-    };
+    adb = { enable = true; };
     steam = {
       enable = true;
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
     };
   };
-
+  #
   system = {
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
@@ -69,14 +107,11 @@
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
     stateVersion = "23.11"; # Did you read the comment?
   };
-
   nix = {
     settings = {
-      experimental-features = ["nix-command" "flakes"];
-      substituters = [
-        "https://cache.nixos.org"
-        "https://nix-community.cachix.org"
-      ];
+      experimental-features = [ "nix-command" "flakes" ];
+      substituters =
+        [ "https://cache.nixos.org" "https://nix-community.cachix.org" ];
       trusted-public-keys = [
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
@@ -84,13 +119,28 @@
     };
   };
 
-  # Enable networking
+  # # Enable networking
   networking = {
     hostName = "nixos"; # Define your hostname.
     networkmanager.enable = true;
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-    extraHosts = ''
-    '';
+    extraHosts = "";
+
+    # firewall = {
+    #
+    # };
+
+    # openvpn = {
+    #   enable = true;
+    #   client = true;
+    #   configFiles = [
+    #     "/etc/openvpn/purevpn/Recommended-CA2/bn2-auto-tcp-qr.ovpn"
+    #   ];
+    #
+    #   extraConfig = ''
+    #     auth-user-pass /etc/openvpn/purevpn/credentials
+    #   '';
+    # };
   };
   # Select internationalisation properties.
   i18n = {
@@ -113,18 +163,18 @@
     greetd = {
       enable = true;
       settings = rec {
-        initial_session = let
-          hyprland-pkg = inputs.hyprland.packages.${pkgs.system}.hyprland;
-        in {
-          command = "${hyprland-pkg}/bin/Hyprland";
-          user = "michaell";
-        };
+        initial_session =
+          let hyprland-pkg = inputs.hyprland.packages.${pkgs.system}.hyprland;
+          in {
+            command = "${hyprland-pkg}/bin/Hyprland";
+            user = "michaell";
+          };
         default_session = initial_session;
       };
     };
     mpd = {
       enable = true;
-      musicDirectory = "/mnt/ssd/Users/Michael/Music";
+      # musicDirectory = /home/${user}/Music;
       extraConfig = ''
         audio_output {
           type "pipewire"
@@ -133,6 +183,7 @@
       '';
       user = "michaell";
     };
+    udisks2.enable = true;
     gvfs.enable = true;
     xserver.xkb = {
       layout = "au";
@@ -146,40 +197,21 @@
         support32Bit = true;
       };
       pulse.enable = true;
-      wireplumber = {
-        enable = true;
-      };
+      wireplumber = { enable = true; };
     };
   };
-
+  # hardware.graphics.enable
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
-    pulseaudio = {
-      support32Bit = true;
-    };
+    pulseaudio = { support32Bit = true; };
   };
 
-  nixpkgs = {
-    config.allowUnfree = true;
-    overlays = [
-      inputs.nur.overlay
-      inputs.neovim.overlays.default
-      inputs.hyprpanel.overlay.x86_64-linux
-      (self: super: {
-        gnome = super.gnome.overrideScope (gself: gsuper: {
-          nautilus = gsuper.nautilus.overrideAttrs (nsuper: {
-            buildInputs = nsuper.buildInputs ++ (with super.gst_all_1; [gst-plugins-good gst-plugins-bad]);
-          });
-        });
-      })
-    ];
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  #
+  # # List packages installed in system profile. To search, run:
+  # # $ nix search wget
   environment = {
     systemPackages = [
       #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -193,9 +225,7 @@
 
       # Not officially in the specification
       XDG_BIN_HOME = "$HOME/.local/bin";
-      PATH = [
-        "${XDG_BIN_HOME}"
-      ];
+      PATH = [ "${XDG_BIN_HOME}" ];
 
       # Firefox use wayland
       MOZ_ENABLE_WAYLAND = "1";
@@ -209,15 +239,6 @@
     };
   };
 
-  security = {
-    polkit = {
-      enable = true;
-    };
-  };
+  security = { polkit = { enable = true; }; };
 
-  imports = [
-    ./hardware-configuration.nix
-    ./virtualisation.nix
-    ../../home
-  ];
 }

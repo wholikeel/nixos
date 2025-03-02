@@ -2,7 +2,9 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let 
+  upkgs = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux;
+in {
   home.packages = with pkgs; [
     # SYSTEM
     #ags
@@ -35,10 +37,12 @@
     xdg-desktop-portal-hyprland
     xwaylandvideobridge
     wallust
+    protonvpn-gui
+    libgnome-keyring
+    gnome-keyring
 
     # Core
     yazi
-    qbittorrent
     quodlibet
 
     # Documents
@@ -52,12 +56,13 @@
     musescore
     libsForQt5.dolphin
     libsForQt5.kate
-    gnome.nautilus
+    nautilus
     gnome-usage
-    gnome.pomodoro
+    gnome-pomodoro
     vistafonts
     umlet
     obsidian
+    foliate
 
     # Theming
     font-awesome
@@ -69,13 +74,21 @@
     # Development
     ventoy-full
     gparted
+    android-studio
+    qemu_full
+    (jetbrains.plugins.addPlugins jetbrains.idea-community [])
+    
 
     # Social
     vesktop
-    armcord
+    legcord
     webcord
     dissent
-    spotube
+    # spotube
+    (discord.override {
+      withOpenASAR = true;
+      withVencord = true;
+    })
 
     # Gaming
     prismlauncher
@@ -83,9 +96,18 @@
     faudio
     glfw-wayland-minecraft
     osu-lazer-bin
+    protonup-qt
+    heroic
+    lutris
 
     burpsuite
+    joplin
+    joplin-desktop
+
+    godot_4
 
     inputs.zen-browser.packages.x86_64-linux.default
+    upkgs.qbittorrent
+    inputs.ghostty.packages.x86_64-linux.default
   ];
 }
